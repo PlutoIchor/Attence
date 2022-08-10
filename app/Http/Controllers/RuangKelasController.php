@@ -16,7 +16,7 @@ class RuangKelasController extends Controller
      */
     public function index()
     {
-        $data = RuangKelas::all();
+        $data = RuangKelas::paginate(5)->withQueryString();
         return view('daftarKelas.daftar_kelas', ['data'=>$data]);
     }
 

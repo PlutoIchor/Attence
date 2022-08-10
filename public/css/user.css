@@ -1,0 +1,44 @@
+* {
+    font-family: sans-serif;
+}
+
+html{
+    height:100%;
+}
+body{ 
+    height:100%;
+    background-image: url("../img/gradient_walpaper.webp");
+  
+}
+.form_login_register{
+    position: absolute;
+    margin: auto;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    width: 30%;
+    height: min-content;
+    background-color: white;
+    border-radius: 3px;
+}
+
+.form-header{
+    display: flex;
+    justify-content: center;
+    font-family: seh;
+}
+
+.input {
+    border: 0;
+}
+
+.btn-login {
+    color: white;
+    background-color: #032a3b
+}
+
+.option-login {
+    font-size: 13px;
+    color: grey;
+}

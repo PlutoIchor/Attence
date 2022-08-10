@@ -33,7 +33,10 @@
                 <hr>
                 <div class="logout align-items-center">
                     <p><?php echo date('d-m-y h:i'); ?></p>
-                    <p><a href="#" style="padding-left: 0">Logout</a></p>
+                    <p>
+                        <i class="fa-solid fa-arrow-right-from-bracket"></i>
+                        <a href="#" style="padding-left: 0; text-decoration:none">Logout</a>
+                    </p>
                 </div>
             </div>
           </div>

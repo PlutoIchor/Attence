@@ -5,7 +5,7 @@
       <i class="fa-solid fa-chalkboard-user mr-2" style="font-size: 30px"></i>
       <h2 class="mb-0">Daftar Kelas</h2>
     </div>
-    <div class="tabel-data p-3 mb-5 border rounded" style="border-color:black">
+    <div class="tabel-data p-3 mb-3 border rounded" style="border-color:black">
         <!-- Button trigger modal -->
         <div class="table-header d-flex flex-row position-relative mb-3" style="height: 40px">
           <button type="button" class="btn btn-info p-2 h-auto" data-toggle="modal" data-target="#tambah_daftarKelas">
@@ -154,5 +154,8 @@
             @endforeach
           </tbody>
         </table>
+      </div>
+      <div class="d-flex justify-content-center">
+        {{ $data->links() }}
       </div>
 @endsection

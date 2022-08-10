@@ -93,3 +93,7 @@ body {
 .row_siswa:active{
     background-color: rgb(229, 229, 229);
 }
+
+.logout_button:hover ~ .logout_button a, .logout_button i{
+    color: green;
+}
