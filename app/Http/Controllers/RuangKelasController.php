@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\RuangKelas;
 use App\Models\Siswa;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use PhpParser\Node\Stmt\Return_;
 
 class RuangKelasController extends Controller
@@ -16,7 +17,12 @@ class RuangKelasController extends Controller
      */
     public function index()
     {
-        $data = RuangKelas::paginate(5)->withQueryString();
+        $data = RuangKelas::where('id_user', '=', Auth::user()->id)->paginate(5)->withQueryString();
+        foreach($data as $item) {
+            $jml_siswa = Siswa::where('id_kelas', '=', $item->id)->get()->count();
+            $item['jml_siswa'] = $jml_siswa;
+        }
+            
         return view('daftarKelas.daftar_kelas', ['data'=>$data]);
     }
 
@@ -28,7 +34,12 @@ class RuangKelasController extends Controller
     		// mengambil data dari table pegawai sesuai pencarian data
 		$data = RuangKelas::latest()
 		->where('nama_kelas','like',"%".$search."%")
-		->orWhere('wali_kelas', 'like', "%".$search."%");
+		->orWhere('wali_kelas', 'like', "%".$search."%")->paginate(5)->withQueryString();
+
+        foreach($data as $item) {
+            $jml_siswa = Siswa::where('id_kelas', '=', $item->id)->get()->count();
+            $item['jml_siswa'] = $jml_siswa;
+        }
  
     		// mengirim data pegawai ke view index
 		return view('daftarKelas.daftar_kelas', ['data'=>$data]);
@@ -57,9 +68,17 @@ class RuangKelasController extends Controller
             'wali_kelas' => 'required',
         ]);
 
-        $data = $request->except('_token');
-        RuangKelas::insert($data);
+        // $data = $request->except('_token');
+        // $data['id_user'] = Auth::user()->id;
+        // RuangKelas::create($data);
 
+            // dd(Auth::user()->id);
+        RuangKelas::create([
+            'id_user' => Auth::user()->id,
+            'nama_kelas' => $request->nama_kelas,
+            'wali_kelas' => $request->wali_kelas
+        ]);
+        
         return redirect('/daftar_kelas')->with('successAdd', 'Data berhasil disimpan');
     }
 
@@ -71,9 +90,12 @@ class RuangKelasController extends Controller
      */
     public function show(RuangKelas $ruangKelas, $id_kelas)
     {
-        $nama_kelas = RuangKelas::select('nama_kelas')->take(1)->where('id_kelas','like',"$id_kelas")->get();
-        $data = Siswa::where('id_kelas','LIKE', "$id_kelas")->get();
-        return view('daftarKelas.isi_kelas', ['nama_kelas'=>$nama_kelas, 'data'=>$data]);
+        $info_kelas = RuangKelas::where('id','=',"$id_kelas")->first();
+        $data = Siswa::where('id_kelas','=', "$id_kelas")->paginate(7)->withQueryString();
+        return view('daftarKelas.isi_kelas', ['id_kelas'=>$info_kelas['id'], 
+                                            'nama_kelas'=>$info_kelas['nama_kelas'],
+                                            'wali_kelas'=>$info_kelas['wali_kelas'],
+                                            'data'=>$data]);
     }
 
     /**
@@ -99,7 +121,7 @@ class RuangKelasController extends Controller
         $item = RuangKelas::findOrFail($id);
         $data = $request->except(['_token']);
         $item->update($data);
-        return redirect('/daftar_kelas')->with('successUpdate', 'Data berhasil diubah');;
+        return redirect('/daftar_kelas')->with('successUpdate', 'Data berhasil diubah');
     }
 
     /**
@@ -110,8 +132,10 @@ class RuangKelasController extends Controller
      */
     public function destroy($id)
     {
-        $item = RuangKelas::findOrFail($id);
-        $item->delete();
-        return redirect()->back();
+        $kelas = RuangKelas::findOrFail($id);
+        $isi_kelas = Siswa::where('id_kelas','=', "$id");
+        $kelas->delete();
+        $isi_kelas->delete();
+        return redirect()->back()->with('successDelete', 'Data berhasil dihapus');
     }
 }

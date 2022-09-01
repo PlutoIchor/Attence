@@ -19,7 +19,7 @@ class User extends Authenticatable
     protected $fillable = [
         'username', 
         'email', 
-        'no_telp',
+        'phone_number',
         'password',
     ];
 
@@ -40,4 +40,9 @@ class User extends Authenticatable
     protected $casts = [
         'email_verified_at' => 'datetime',
     ];
+
+    public function classes()
+    {
+        return $this->hasMany(RuangKelas::class, 'id_user');
+    }
 }

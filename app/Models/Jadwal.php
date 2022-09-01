@@ -5,22 +5,18 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class Siswa extends Model
+class Jadwal extends Model
 {
     use HasFactory;
 
-    protected $table = "siswas";
+    protected $table = "jadwals";
     protected $primaryKey = "id";
     protected $fillable = [
-        'NIS',
-        'nama_lengkap',
-        'nama_panggilan',
-        'nomor_absen',
-        'email',
-        'no_telp',
-        'jk',
-        'password',
-        'id_kelas'
+        'hari',
+        'mapel',
+        'waktu_mulai',
+        'waktu_berakhir',
+        'id_kelas',
     ];
 
     public function classroom()

@@ -4,8 +4,14 @@ use App\Http\Controllers\LoginController;
 use App\Http\Controllers\RegisterController;
 use App\Http\Controllers\RuangKelasController;
 use App\Http\Controllers\SiswaController;
+use App\Http\Controllers\AbsenController;
+use App\Http\Controllers\AuthController;
+use App\Http\Controllers\DashboardController;
+use App\Http\Controllers\JadwalController;
+use App\Models\Jadwal;
 use App\Models\Siswa;
 use Illuminate\Support\Facades\Route;
+use SebastianBergmann\CodeCoverage\Report\Html\Dashboard;
 
 /*
 |--------------------------------------------------------------------------
@@ -18,23 +24,29 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/login', [LoginController::class, 'index']);
-Route::get('/register', [RegisterController::class, 'index']);
+Route::get('/loginAdmin', [AuthController::class, 'loginAdmin'])->middleware('guest');
+Route::get('/loginSiswa', [AuthController::class, 'loginSiswa'])->middleware('guest');
+
+Route::post('/loginAdminAuth', [AuthController::class, 'loginAdminAuth']);
+Route::post('/loginSiswaAuth', [AuthController::class, 'loginSiswaAuth']);
+
+
+Route::get('/register', [AuthController::class, 'register']);
+Route::post('/register_auth', [AuthController::class, 'registerStore']);
+
+Route::get('/logout', [AuthController::class, 'logout']);
+
 
 Route::get('/', function () {
-    return view('dashboard');
-});
-
-Route::get('/dashboard', function () {
-    return view('dashboard');
+    return redirect('/dashboard');
 });
 
 Route::get('/daftar_kelas', function () {
     return view('daftarKelas/daftar_kelas');
 });
 
-Route::get('/form_tambah_siswa', function () {
-    return view('daftarSiswa/form_tambah_siswa');
+Route::get('/data_absen', function () {
+    return view('absen/data_absen');
 });
 
 Route::get('/daftar_kelas', [RuangKelasController::class, 'index']);
@@ -45,3 +57,19 @@ Route::post('/search_kelas', [RuangKelasController::class, 'search']);
 Route::get('/isi_kelas/{id_kelas}', [RuangKelasController::class, 'show']);
 
 Route::get('/informasi_siswa/{id_siswa}', [SiswaController::class, 'index']);
+
+Route::get('/data_absen', [AbsenController::class, 'index']);
+Route::post('/tambah_jadwal', [AbsenController::class , 'store']);
+
+Route::get('/jadwal_absen/{id_kelas}', [JadwalController::class, 'index']);
+Route::post('/tambah_jadwal/{id_kelas}/{hari}', [JadwalController::class, 'store']);
+Route::post('/edit_jadwal/{id_kelas}/{id}', [JadwalController::class, 'update']);
+Route::delete('/hapus_jadwal/{id_kelas}/{id}', [JadwalController::class, 'destroy']);
+
+
+Route::get('/form_tambah_siswa/{id_kelas}', [SiswaController::class, 'pageTambahSiswa']);
+Route::post('/tambah_siswa/{id_kelas}', [SiswaController::class, 'store']);
+Route::post('/search_siswa/{id_kelas}', [SiswaController::class, 'search']);
+
+
+Route::get('/dashboard', [DashboardController::class, 'index']);

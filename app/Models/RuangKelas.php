@@ -10,9 +10,30 @@ class RuangKelas extends Model
     use HasFactory;
 
     protected $table = "ruang_kelas";
-    protected $primaryKey = "id_kelas";
+    protected $primaryKey = "id";
     protected $fillable = [
         'nama_kelas',
-        'wali_kelas'
+        'wali_kelas',
+        'id_user'
     ];
+
+    public function user()
+    {
+        return $this->belongsTo(User::class);
+    }
+
+    public function students()
+    {
+        return $this->hasMany(Siswa::class, 'id_kelas');
+    }
+
+    public function schedules()
+    {
+        return $this->hasMany(Jadwal::class);
+    }
+
+    public function attendances()
+    {
+        return $this->hasMany(Absen::class);
+    }
 }

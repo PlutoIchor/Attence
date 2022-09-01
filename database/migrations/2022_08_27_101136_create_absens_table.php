@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateRuangKelasTable extends Migration
+class CreateAbsensTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,11 +13,11 @@ class CreateRuangKelasTable extends Migration
      */
     public function up()
     {
-        Schema::create('ruang_kelas', function (Blueprint $table) {
-            $table->id('id');
-            $table->foreignId('id_user')->references('id')->on('users');
-            $table->string('nama_kelas');
-            $table->string('wali_kelas');
+        Schema::create('absens', function (Blueprint $table) {
+            $table->id();
+            $table->foreignId('id_kelas')->references('id')->on('ruang_kelas');
+            $table->foreignId('id_siswa')->references('id')->on('siswas');
+            $table->foreignId('id_mapel')->references('id')->on('jadwals');
             $table->timestamps();
         });
     }
@@ -29,6 +29,6 @@ class CreateRuangKelasTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('ruang_kelas');
+        Schema::dropIfExists('absens');
     }
 }
