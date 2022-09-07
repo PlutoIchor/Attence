@@ -25,11 +25,11 @@ class Siswa extends Model
 
     public function classroom()
     {
-        return $this->belongsTo(RuangKelas::class);
+        return $this->belongsTo(RuangKelas::class, 'id_kelas');
     }
 
     public function attendances()
     {
-        return $this->hasMany(Absen::class);
+        return $this->hasMany(Absen::class, 'id_siswa');
     }
 }

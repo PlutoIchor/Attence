@@ -45,7 +45,11 @@
             </ul>
             <hr>
             <div class="logout align-items-center">
-                <p><?php echo date('d-m-y h:i'); ?></p>
+                <?php
+                $today = getdate()['wday'];
+                $hari = ['Minggu', 'Senin', 'Selasa', 'Rabu', 'Kamis', 'Jumat', 'Sabtu'];
+                ?>
+                <p>{{ $hari[$today] }}, {{ date('d-m-y h:i') }}</p>
                 <p>
                     <i class="fa-solid fa-arrow-right-from-bracket"></i>
                     <a href="{{ url('/logout') }}" style="padding-left: 0; text-decoration:none">Logout</a>

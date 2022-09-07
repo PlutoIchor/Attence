@@ -18,6 +18,7 @@ class CreateAbsensTable extends Migration
             $table->foreignId('id_kelas')->references('id')->on('ruang_kelas');
             $table->foreignId('id_siswa')->references('id')->on('siswas');
             $table->foreignId('id_mapel')->references('id')->on('jadwals');
+            $table->string('keterangan');
             $table->timestamps();
         });
     }

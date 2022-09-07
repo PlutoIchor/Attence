@@ -29,11 +29,11 @@ class RuangKelas extends Model
 
     public function schedules()
     {
-        return $this->hasMany(Jadwal::class);
+        return $this->hasMany(Jadwal::class, 'id_kelas');
     }
 
     public function attendances()
     {
-        return $this->hasMany(Absen::class);
+        return $this->hasMany(Absen::class, 'id_kelas');
     }
 }

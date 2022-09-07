@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Jadwal;
 use App\Models\RuangKelas;
 use App\Models\Siswa;
 use Illuminate\Http\Request;
@@ -133,9 +134,12 @@ class RuangKelasController extends Controller
     public function destroy($id)
     {
         $kelas = RuangKelas::findOrFail($id);
-        $isi_kelas = Siswa::where('id_kelas','=', "$id");
-        $kelas->delete();
+        $isi_kelas = Siswa::where('id_kelas','=', $id);
+        $jadwal_kelas = Jadwal::where('id_kelas','=',$id);
+       
+        $jadwal_kelas->delete(); 
         $isi_kelas->delete();
+        $kelas->delete();
         return redirect()->back()->with('successDelete', 'Data berhasil dihapus');
     }
 }

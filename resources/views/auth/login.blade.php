@@ -22,7 +22,7 @@
 </head>
 
 <body>
-    <form class="form_login_register p-3 pr-5 pl-5 border rounded" action="{{ url('/loginAdminAuth') }}" method="POST">
+    <form class="form_login_register p-3 pr-5 pl-5 border rounded" action="{{ url('/loginAuth') }}" method="POST">
         @csrf
         <div class="form-header mb-4">
             <h3 style="font-family: sans-serif">Login</h3>
@@ -58,7 +58,6 @@
             Sign In
         </button>
         <div class="d-flex flex-column align-items-center mt-4 option-login">
-            <p><a href="{{ url('/loginSiswa') }}">Login sebagai Siswa</a></p>
             <p> Belum punya akun?<a href="{{ url('/register') }}"> Sign Up</a></p>
         </div>
     </form>

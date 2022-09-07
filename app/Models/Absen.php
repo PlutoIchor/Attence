@@ -9,9 +9,12 @@ class Absen extends Model
 {
     use HasFactory;
 
-    protected $table = "absen";
+    protected $table = "absens";
     protected $primaryKey = "id";
     protected $fillable = [
+        'id_kelas',
+        'id_siswa',
+        'id_mapel',
         'keterangan'
     ];
 
@@ -22,7 +25,7 @@ class Absen extends Model
 
     public function schedule()
     {
-        return $this->belongsTo(Jadwal::class);
+        return $this->belongsTo(Jadwal::class, 'id_mapel');
     }
 
     public function classroom()

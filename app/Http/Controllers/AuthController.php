@@ -10,6 +10,7 @@ use Illuminate\Support\Facades\Hash;
 
 class AuthController extends Controller
 {
+
     public function register()
     {
         return view('auth.register');
@@ -28,24 +29,20 @@ class AuthController extends Controller
         // Hashing password
         $validatedData['password'] = Hash::make($validatedData['password']);
 
-        User::create($validatedData);
+        $user = User::create($validatedData);
+        $user->assignRole('admin');
         
         $request->session()->flash('success', 'Registrasi berhasil!');
 
-        return redirect('/loginAdmin');
+        return redirect('/login');
     }
 
-    public function loginAdmin()
+    public function login()
     {
-        return view('auth.loginAdmin');
+        return view('auth.login');
     }
 
-    public function loginSiswa()
-    {
-        return view('auth.loginSiswa');
-    }
-
-    public function loginAdminAuth(Request $request)
+    public function loginAuth(Request $request)
     {
         $data = $request->validate([
             'email' => 'required|email',
@@ -55,7 +52,14 @@ class AuthController extends Controller
         if(Auth::attempt($data)){
             $request->session()->regenerate(); 
              
-            return redirect('/dashboard');
+            $user = Auth::user();
+            // Code editor bilang error, tapi klo dijalanin bisa
+            if($user->hasRole('admin'))
+            {
+                return redirect('/dashboard');
+            } else {
+                return redirect('/dashboardSiswa');
+            }
         }
 
         return back()->with('error', 'Email atau Password salah');
@@ -69,6 +73,6 @@ class AuthController extends Controller
 
         $request->session()->regenerateToken();
 
-        return redirect('/loginAdmin');
+        return redirect('/login');
     }
 }

@@ -2,15 +2,10 @@
 
 namespace Database\Seeders;
 
-use App\Models\Roles;
-use App\Models\RuangKelas;
 use App\Models\Siswa;
-use App\Models\User;
-use App\Models\UserRoles;
 use Illuminate\Database\Seeder;
-use Illuminate\Support\Facades\Hash;
 
-class FirstSeeder extends Seeder
+class SiswaSeeder extends Seeder
 {
     /**
      * Run the database seeds.
@@ -19,43 +14,6 @@ class FirstSeeder extends Seeder
      */
     public function run()
     {
-        User::create([
-            "username" => "christian_dimas",
-            "email" => "dimas@gmail.com",
-            "phone_number" => "081563832997",
-            "password" => Hash::make("password"),
-        ]);
-
-        User::create([
-            "username" => "iqbal_muflishin",
-            "email" => "iqbal@gmail.com",
-            "phone_number" => "081500000000",
-            "password" => Hash::make("password"),
-        ]);
-
-        User::create([
-            "username" => "rizki_rachmadanni",
-            "email" => "rizki@gmail.com",
-            "phone_number" => "081500000000",
-            "password" => Hash::make("password"),
-        ]);
-
-        RuangKelas::create([
-            "id_user" => 1,
-            "nama_kelas" => "XII RPL",
-            "wali_kelas" => "Faris"
-        ]);
-        RuangKelas::create([
-            "id_user" => 1,
-            "nama_kelas" => "XI RPL",
-            "wali_kelas" => "Unknown"
-        ]);
-        RuangKelas::create([
-            "id_user" => 1,
-            "nama_kelas" => "X RPL",
-            "wali_kelas" => "Unknown"
-        ]);
-
         Siswa::create([
             "id_kelas" => 1,
             "NIS" => 12062,
@@ -420,6 +378,5 @@ class FirstSeeder extends Seeder
             "jk" => "Laki-Laki",
             "password" => "phdgsfTYtdh",
         ]);
-
     }
 }

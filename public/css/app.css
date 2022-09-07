@@ -90,7 +90,7 @@ body {
 .nama_siswa:hover {
     color: #17A2B8;
 }
-.row_siswa:active{
+.row_siswa:active, .row_jadwal:active{
     background-color: rgb(229, 229, 229);
 }
 

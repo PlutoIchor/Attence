@@ -47,14 +47,21 @@
                 <tbody>
                     <?php $count = 1; ?>
                     @foreach ($data as $item)
-                        <tr class="row_siswa" onclick="window.location.href='{{ url('/informasi_siswa/' . $item->id) }}'"">
-                            <td>{{ $data->perPage() * ($data->currentPage() - 1) + $count }}</td>
-                            <?php $count++; ?>
-                            <td colspan="2">{{ $item->NIS }}</td>
-                            <td class="nama_siswa" colspan="4">{{ $item->nama_lengkap }}</td>
-                            <td>{{ $item->nomor_absen }}</td>
-                            <td colspan="3">{{ $item->email }}</td>
-                            <td colspan="2">{{ $item->password }}</td>
+                        {{-- Kalau Perempuan text nya merah --}}
+                        @if ($item->jk == 'Perempuan')
+                            <tr class="row_siswa text-danger"
+                                onclick="window.location.href='{{ url('/informasi_siswa/' . $item->id) }}'">
+                            @else
+                            <tr class="row_siswa text-dark"
+                                onclick="window.location.href='{{ url('/informasi_siswa/' . $item->id) }}'">
+                        @endif
+                        <td>{{ $data->perPage() * ($data->currentPage() - 1) + $count }}</td>
+                        <?php $count++; ?>
+                        <td colspan="2">{{ $item->NIS }}</td>
+                        <td class="nama_siswa" colspan="4">{{ $item->nama_lengkap }}</td>
+                        <td>{{ $item->nomor_absen }}</td>
+                        <td colspan="3">{{ $item->email }}</td>
+                        <td colspan="2">{{ $item->password }}</td>
                         </tr>
                     @endforeach
                 </tbody>

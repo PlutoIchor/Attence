@@ -78,7 +78,7 @@
             Sign Up
         </button>
         <div class="d-flex justify-content-center mt-4 option-login">
-            <p> Sudah punya akun?<a href="{{ url('/loginAdmin') }}"> Sign In</a></p>
+            <p> Sudah punya akun?<a href="{{ url('/login') }}"> Sign In</a></p>
         </div>
     </form>
 </body>
