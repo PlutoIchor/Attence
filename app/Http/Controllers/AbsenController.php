@@ -97,19 +97,6 @@ class AbsenController extends Controller
         return redirect('/jadwal_absen')->with('successAdd', 'Jadwal berhasil dibuat!');
     }
 
-    public function absenSekarang(Request $request, $id_mapel, $id_siswa)
-    {
-        $siswa = Siswa::where('id','=',$id_siswa)->first();
-        Absen::create([
-            'id_kelas' => $siswa->classroom->id,
-            'id_siswa' => $id_siswa,
-            'id_mapel' => $id_mapel,
-            'keterangan' => $request->keterangan,
-        ]);
-
-        return redirect('/dashboardSiswa');
-    }
-
     /**
      * Display the specified resource.
      *

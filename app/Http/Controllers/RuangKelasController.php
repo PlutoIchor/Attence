@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Absen;
 use App\Models\Jadwal;
 use App\Models\RuangKelas;
 use App\Models\Siswa;
@@ -136,7 +137,9 @@ class RuangKelasController extends Controller
         $kelas = RuangKelas::findOrFail($id);
         $isi_kelas = Siswa::where('id_kelas','=', $id);
         $jadwal_kelas = Jadwal::where('id_kelas','=',$id);
+        $absenKelasIni = Absen::where('id_kelas','=',$id);
        
+        $absenKelasIni->delete();
         $jadwal_kelas->delete(); 
         $isi_kelas->delete();
         $kelas->delete();

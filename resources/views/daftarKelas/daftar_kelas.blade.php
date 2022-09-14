@@ -1,7 +1,7 @@
 @extends('layouts.main')
 
 @section('content')
-    <div class="header d-flex flex-row align-items-center mb-3 text-info">
+    <div class="header d-flex flex-row align-items-center mb-3 text-primary">
         <i class="fa-solid fa-chalkboard-user mr-2" style="font-size: 30px"></i>
         <h2 class="mb-0">Daftar Kelas</h2>
     </div>
@@ -68,11 +68,11 @@
                             @csrf
                             <div class="form-group">
                                 <label>Nama Kelas</label>
-                                <input type="text" class="form-control" name="nama_kelas" placeholder="Nama Kelas">
+                                <input type="text" class="form-control" name="nama_kelas" placeholder="Nama Kelas" required>
                             </div>
                             <div class="form-group">
                                 <label>Wali Kelas</label>
-                                <input type="text" class="form-control" name="wali_kelas" placeholder="Wali Kelas">
+                                <input type="text" class="form-control" name="wali_kelas" placeholder="Wali Kelas" required>
                             </div>
                             <button type="submit" class="btn btn-info p-2">
                                 Tambah

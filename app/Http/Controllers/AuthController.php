@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Siswa;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -74,5 +75,32 @@ class AuthController extends Controller
         $request->session()->regenerateToken();
 
         return redirect('/login');
+    }
+
+    public function ubahPassword(Request $request)
+    {
+        $validatedData = $request->validate([
+            'password_lama' => 'min:6|required',
+            'password_baru' => 'min:6|required_with:konfirmasi_password_baru|same:konfirmasi_password_baru',
+            'konfirmasi_password_baru' => 'min:6|required'
+        ]);
+
+        $user = Auth::user();
+        $siswa = Siswa::where('email','=',$user->email)->first();
+
+        $password_lama = $validatedData['password_lama'];
+        $password_baru = Hash::make($validatedData['password_baru']);
+
+
+        // Cek apakah dia tahu password yang lama
+        if(password_verify($password_lama, $user->password))
+        {
+            $user->update(array('password' => $password_baru));
+            $siswa->update(array('password' => 'Diubah oleh siswa'));
+
+            return redirect('/profilSiswa')->with('success', 'Password berhasil diubah');
+        } else {
+            return redirect('/profilSiswa')->with('error', 'Password lama tidak sesuai');
+        }
     }
 }

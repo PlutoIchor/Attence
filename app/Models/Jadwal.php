@@ -28,4 +28,9 @@ class Jadwal extends Model
     {
         return $this->hasMany(Absen::class, 'id_mapel');
     }
+
+    public function validations()
+    {
+        return $this->hasMany(Validasi::class, 'id_mapel');
+    }
 }

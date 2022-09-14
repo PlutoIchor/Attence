@@ -54,7 +54,7 @@
         <div class="form-footer mt-4 df flex-row ">
             <button type="button" class="btn btn-secondary"
                 onclick="window.location.href='{{ url('/isi_kelas/' . $id_kelas) }}'">Kembali</button>
-            <button type="submit" class="btn btn-primary">Tambah</button>
+            <button type="submit" class="btn btn-info">Tambah</button>
         </div>
     </form>
 @endsection

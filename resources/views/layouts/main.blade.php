@@ -42,6 +42,10 @@
                         href="{{ url('/daftar_kelas') }}">Daftar Kelas</a></li>
                 <li class="nav-con"><i class="fa-solid fa-calendar-days"></i><a href="{{ '/data_absen' }}">Absen</a>
                 </li>
+                <li class="nav-con"><i class="fa-solid fa-check-to-slot"></i><a href="{{ '/data_validasi' }}">Validasi</a>
+                </li>
+                <li class="nav-con"><i class="fa-solid fa-id-card-clip"></i><a href="#">Profil Anda</a>
+                </li>
             </ul>
             <hr>
             <div class="logout align-items-center">

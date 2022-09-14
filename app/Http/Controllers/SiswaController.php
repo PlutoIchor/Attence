@@ -118,6 +118,22 @@ class SiswaController extends Controller
         return view('siswa.dashboard', ['data_siswa' => $data_siswa, 'jadwalHariIni' => $jadwalHariIni]);
     }
 
+    public function profil()
+    {
+        $user = Auth::user();
+        $siswa = Siswa::where('email','=',$user->email)->first();
+        
+        return view('siswa.profil', ['siswa' => $siswa, 'user' => $user]);
+    }
+
+    public function ubahNamaPanggilan(Request $request)
+    {
+        $siswa = Siswa::where('email','=',Auth::user()->email)->first();
+        $siswa->update(array('nama_panggilan' => $request->nama_panggilan));
+
+        return redirect('profilSiswa')->with('success', 'Nama panggilanmu berhasil diubah');
+    }
+
     /**
      * Display the specified resource.
      *

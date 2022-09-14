@@ -8,8 +8,11 @@ use App\Http\Controllers\AbsenController;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\JadwalController;
+use App\Http\Controllers\ValidasiController;
 use App\Models\Jadwal;
 use App\Models\Siswa;
+use App\Models\Validasi;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 use SebastianBergmann\CodeCoverage\Report\Html\Dashboard;
 
@@ -70,10 +73,18 @@ Route::middleware('role:admin')->group(function (){
 
 
     Route::get('/dashboard', [DashboardController::class, 'index']);
+
+    Route::get('/data_validasi', [ValidasiController::class, 'index']);
+    Route::get('/buatKehadiranSiswa/{id_validasi}', [ValidasiController::class, 'buatKehadiranSiswa']);
+    Route::post('/buatKeteranganSiswa/{id_validasi}', [ValidasiController::class, 'buatKeteranganSiswa']);
 });
 
 Route::middleware('role:siswa')->group(function (){
     Route::get('/dashboardSiswa', [SiswaController::class, 'dashboard']);
+    Route::get('/profilSiswa', [SiswaController::class, 'profil']);
 
-    Route::post('/absenSekarang/{id_mapel}/{id_siswa}', [AbsenController::class, 'absenSekarang']);
+    Route::post('/absenSekarang/{id_mapel}/{id_siswa}', [ValidasiController::class, 'absenSekarang']);
+
+    Route::post('/ubahPassword', [AuthController::class, 'ubahPassword']);
+    Route::post('/ubahNamaPanggilan', [SiswaController::class, 'ubahNamaPanggilan']);
 });

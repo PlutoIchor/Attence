@@ -31,9 +31,4 @@ class RuangKelas extends Model
     {
         return $this->hasMany(Jadwal::class, 'id_kelas');
     }
-
-    public function attendances()
-    {
-        return $this->hasMany(Absen::class, 'id_kelas');
-    }
 }

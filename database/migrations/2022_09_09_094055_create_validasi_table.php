@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateAbsensTable extends Migration
+class CreateValidasiTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,12 +13,13 @@ class CreateAbsensTable extends Migration
      */
     public function up()
     {
-        Schema::create('absens', function (Blueprint $table) {
+        Schema::create('validasi', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('id_kelas');
+            $table->foreignId('id_kelas')->references('id')->on('ruang_kelas');
             $table->foreignId('id_siswa')->references('id')->on('siswas');
             $table->foreignId('id_mapel')->references('id')->on('jadwals');
             $table->string('keterangan');
+            $table->string('lampiran')->nullable();
             $table->timestamps();
         });
     }
@@ -30,6 +31,6 @@ class CreateAbsensTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('absens');
+        Schema::dropIfExists('validasi');
     }
 }

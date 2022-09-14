@@ -32,4 +32,9 @@ class Siswa extends Model
     {
         return $this->hasMany(Absen::class, 'id_siswa');
     }
+
+    public function validations()
+    {
+        return $this->hasMany(Validasi::class, 'id_siswa');
+    }
 }
